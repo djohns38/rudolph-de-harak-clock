@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Full Screen Clock</title>
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        font-family: monospace;
+        background: #000; /* Black background */
+    }
+    #clockContainer {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr); /* 12 columns */
+        grid-template-rows: auto repeat(5, 1fr); /* 6 rows including the month row */
+        width: 100vw; /* Full viewport width */
+        height: 100vh; /* Full viewport height */
+    }
+    .clockCell {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white; /* White text */
+        border: 1px solid #444; /* Slight border for definition */
+        font-size: 4vw; /* Larger text size */
+    }
+    .monthCell { /* Special styling for month row */
+        font-size: 5vw; /* Even larger text size for clarity */
+    }
+    .purple { color: #800080; }
+    .green { color: #008000; }
+    .blue { color: #0000FF; }
+    .yellow { color: #FFFF00; }
+    .red { color: #FF0000; }
+</style>
+</head>
+<body>
+    <div id="clockContainer"></div>
+
+<script>
+function updateClock() {
+    const now = new Date();
+    const currentSecond = now.getSeconds();
+    const currentMinute = now.getMinutes();
+    const currentHour = now.getHours();
+    const currentDay = now.getDate();
+    const currentMonth = now.getMonth() + 1;
+
+    printMonthRow(currentMonth);
+    printClockFace(currentSecond, currentMinute, currentHour, currentDay);
+}
+
+function printMonthRow(month) {
+    let display = '';
+    for (let i = 1; i <= 12; i++) {
+        let className = 'clockCell monthCell';
+        if (i === month) {
+            className += ' purple';
+        }
+        display += `<div class="${className}">${i}</div>`;
+    }
+    document.getElementById('clockContainer').innerHTML = display;
+}
+
+function printClockFace(second, minute, hour, day) {
+    const clockFace = Array.from({length: 60}, (_, i) => i);
+    let display = document.getElementById('clockContainer').innerHTML; // Continue from month row
+    for (let i = 0; i < 60; i++) {
+        let className = 'clockCell';
+        if (i === second) {
+            className += ' green';
+        } else if (i === minute) {
+            className += ' blue';
+        } else if (i === hour) {
+            className += ' yellow';
+        } else if (i === day) {
+            className += ' red';
+        }
+        display += `<div class="${className}">${i.toString().padStart(2, '0')}</div>`;
+    }
+    document.getElementById('clockContainer').innerHTML = display;
+}
+
+setInterval(updateClock, 1000);
+</script>
+</body>
+</html>
