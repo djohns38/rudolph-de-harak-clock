@@ -2,32 +2,32 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Full Screen Clock</title>
+<title>Rudloph de Harak Digital Clock</title>
 <style>
     html, body {
         height: 100%;
         margin: 0;
         padding: 0;
         font-family: monospace;
-        background: #000; /* Black background */
+        background: #000;
     }
     #clockContainer {
         display: grid;
-        grid-template-columns: repeat(12, 1fr); /* 12 columns */
-        grid-template-rows: auto repeat(5, 1fr); /* 6 rows including the month row */
-        width: 100vw; /* Full viewport width */
-        height: 100vh; /* Full viewport height */
+        grid-template-columns: repeat(12, 1fr);
+        grid-template-rows: auto repeat(5, 1fr);
+        width: 100vw;
+        height: 100vh;
     }
     .clockCell {
         display: flex;
         align-items: center;
         justify-content: center;
-        color: white; /* White text */
-        border: 1px solid #444; /* Slight border for definition */
-        font-size: 4vw; /* Larger text size */
+        color: white;
+        border: 1px solid #444;
+        font-size: 4vw;
     }
-    .monthCell { /* Special styling for month row */
-        font-size: 5vw; /* Even larger text size for clarity */
+    .monthCell {
+        font-size: 5vw;
     }
     .purple { color: #800080; }
     .green { color: #008000; }
@@ -66,7 +66,7 @@ function printMonthRow(month) {
 
 function printClockFace(second, minute, hour, day) {
     const clockFace = Array.from({length: 60}, (_, i) => i);
-    let display = document.getElementById('clockContainer').innerHTML; // Continue from month row
+    let display = document.getElementById('clockContainer').innerHTML;
     for (let i = 0; i < 60; i++) {
         let className = 'clockCell';
         if (i === second) {
